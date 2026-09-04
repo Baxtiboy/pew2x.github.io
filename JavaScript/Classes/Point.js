@@ -9,6 +9,8 @@ export class Point {
         }
     }
 
+    // ----------------------
+
     getVector(target) {
         const xDist = target.x - this.x;
         const yDist = target.y - this.y;
@@ -33,8 +35,8 @@ export class Point {
 
     rotate90s(vector, angle) {
         switch (angle) {
-            case 90: return {x: -vector.y, y: vector.x};
-            case -90: return {x: vector.y, y: -vector.x};
+            case 90: return {x: vector.y, y: -vector.x};
+            case -90: return {x: -vector.y, y: vector.x};
             case 180: return {x: -vector.x, y: -vector.y};
         }
     }
