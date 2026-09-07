@@ -6,7 +6,7 @@ export class Player extends Point {
         this.name = name;
         this.radius = radius
 
-        this.dashSpeed = 600;
+        this.dashSpeed = 700;
 
         this.gun;
 
@@ -67,7 +67,6 @@ export class Player extends Point {
 
         this.collision(canvas, dt);
 
-        this.x += this.v.x * dt;
-        this.y += this.v.y * dt;
+        this.applyVelocity(dt);
     }
 }

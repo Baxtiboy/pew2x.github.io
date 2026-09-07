@@ -43,7 +43,7 @@ export class Point {
 
     // ----------------------
 
-    update(dt) {
+    applyVelocity(dt) {
         this.x += this.v.x * dt;
         this.y += this.v.y * dt;
     }
