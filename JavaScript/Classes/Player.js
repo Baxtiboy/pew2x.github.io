@@ -60,10 +60,10 @@ export class Player extends Point {
         this.tapKey(keys, "a", () => this.dash(this.rotate90s(targetDir, -90)));
         this.tapKey(keys, "d", () => this.dash(this.rotate90s(targetDir, 90)));
 
-        this.pressKey(keys, " ", () => this.pull(target, targetDir, 0.05)); 
+        this.pressKey(keys, " ", () => this.pull(target, targetDir, 0.1)); 
 
-        this.v.x *= 0.95;
-        this.v.y *= 0.95;
+        this.v.x *= 0.9;
+        this.v.y *= 0.9;
 
         this.collision(canvas, dt);
 
