@@ -1,64 +1,51 @@
-import { Point } from "./Classes/Point.js";
 import { Player } from "./Classes/Player.js";
+import { InputHandler } from "./Classes/InputHandler.js";
 
-// -------------------------
+window.addEventListener("load", event => {
+    const cavnas = document.getElementById("game");
+    const context = cavnas.getContext("2d");
+    cavnas.width = 600;
+    cavnas.height = 600;
 
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
+    class Game {
+        constructor(width, height) {
+            this.width = width;
+            this.height = height;
+            this.player = new Player(this);
+            this.inputHandler = new InputHandler();
+        }
 
-// -------------------------
+        update(dt) {
+            this.player.update(this.inputHandler, dt);
+        }
 
-const keys = {};
-const mouseBtns = [false, false, false];
-const mouse = new Point();
+        draw(ctx) {
+            ctx.clearRect(0, 0, this.width, this.height);
 
-window.addEventListener("keydown", (event) => keys[event.key] = true);
-window.addEventListener("keyup", (event) => keys[event.key] = false);
+            this.inputHandler.drawMouse(context);
+            this.player.draw(ctx);
+        }
+    }
 
-canvas.addEventListener("mousedown", (event) => mouseBtns[event.button] = true);
-canvas.addEventListener("mouseup", (event) => mouseBtns[event.button] = false);
-canvas.addEventListener("contextmenu", (event) => event.preventDefault())
+    const game = new Game(cavnas.width, cavnas.height);
+    console.log(game)
 
-canvas.addEventListener("mousemove", (event) => {
-    mouse.x = event.clientX-8 - canvas.width/2;
-    mouse.y = -event.clientY+8 + canvas.height/2;
-})
+    let deltaTime = 1/60;
+    let lastTime = performance.now();
+    const targetFPS = 300;
+    const frameTime = 1000 / targetFPS;
 
-// -------------------------
+    function gameLoop(currentTime) {
+        requestAnimationFrame(gameLoop);
 
-let dt = 1/60;
-const FPS = 300;
-let lastTime = performance.now();
-const timeLimit = 1000 / FPS;
+        const elapsed = currentTime - lastTime;
+        if (elapsed <= frameTime) return
+        deltaTime = elapsed / 1000;
+        lastTime = currentTime - (elapsed % frameTime);
 
-const player = new Player();
+        game.update(deltaTime);
+        game.draw(context);
+    }
 
-// -------------------------
-
-function update(dt) {
-    player.update(canvas, mouse, keys, mouseBtns, dt);
-}
-
-function draw() {
-    ctx.fillStyle = "#000";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    player.draw(canvas, ctx, 10, "#0f0");
-    mouse.draw(canvas, ctx, 16, "#fa0");
-}
-
-function gameLoop(currentTime) {
     requestAnimationFrame(gameLoop);
-
-    const elapsed = currentTime - lastTime;
-    if (elapsed <= timeLimit) return;
-    lastTime = currentTime - (elapsed % timeLimit);
-    dt = elapsed / 1000;
-
-    update(dt);
-    draw();
-}
-
-// -------------------------
-
-requestAnimationFrame(gameLoop);
+})

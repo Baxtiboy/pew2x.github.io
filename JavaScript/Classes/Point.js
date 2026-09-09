@@ -1,5 +1,6 @@
 export class Point {
-    constructor(x=0, y=0, vx=0, vy=0) {
+    constructor(game, x=0, y=0, vx=0, vy=0) {
+        this.game = game;
         this.x = x;
         this.y = y;
 
@@ -30,23 +31,27 @@ export class Point {
     pointer(target, length) {
         const vector = this.getVector(target);
 
-        return {x: vector.x * length, y: vector.y * length};
+        return {x: this.x + (vector.x * length), y: this.y + (vector.y * length)};
     }
 
     rotate90s(vector, angle) {
         switch (angle) {
-            case 90: return {x: vector.y, y: -vector.x};
-            case -90: return {x: -vector.y, y: vector.x};
+            case 90: return {x: -vector.y, y: vector.x};
+            case -90: return {x: vector.y, y: -vector.x};
             case 180: return {x: -vector.x, y: -vector.y};
         }
     }
-
-    // ----------------------
 
     applyVelocity(dt) {
         this.x += this.v.x * dt;
         this.y += this.v.y * dt;
     }
+
+    update(dt) {
+        this.applyVelocity(dt);
+    }
+
+    // ----------------------
 
     translate(canvas) {
         return {
