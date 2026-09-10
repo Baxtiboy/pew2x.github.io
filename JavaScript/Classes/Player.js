@@ -34,8 +34,8 @@ export class Player extends Point {
         input.keyPressed("Space", () => {
             const dist = this.getDist(input.mousePos);
 
-            this.v.x += mouseDir.x * ((dist/15) * dt);
-            this.v.y += mouseDir.y * ((dist/15) * dt);
+            this.v.x += mouseDir.x * ((dist/10) * dt);
+            this.v.y += mouseDir.y * ((dist/10) * dt);
         })
 
         this.v.x -= (this.v.x * 5) * dt;

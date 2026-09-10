@@ -21,6 +21,7 @@ export class Gun extends Point {
             this.isCooldown = true;
             //this.ammo--;
             this.looseBullets.push(new Bullet(this, vector));
+            //console.log(this.looseBullets);
             this.length = 25;
             setTimeout(() => {
                 this.isCooldown = false;

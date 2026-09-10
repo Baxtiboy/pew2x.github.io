@@ -12,17 +12,18 @@ export class Bullet extends Point {
         this.v = {
             x: this.vector.x * this.speed,
             y: this.vector.y * this.speed
-        }
+        };
+        this.isAlive = true;
     }
 
     update(dt) {
         this.x += this.v.x * dt;
         this.y += this.v.y * dt;
 
-        if (this.x < 0 || this.x > this.game.width) return false;
-        if (this.y < 0 || this.y > this.game.height) return false;
+        if (this.x < 0 || this.x > this.game.width) this.isAlive = false;
+        if (this.y < 0 || this.y > this.game.height) this.isAlive = false;
 
-        return true;
+        return this.isAlive;
     }
 
     draw(ctx) {
