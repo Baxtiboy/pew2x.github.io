@@ -7,6 +7,7 @@ export class Player extends Point {
         this.game = game
         this.width = 30;
         this.height = 30;
+        this.score = 0;
         this.x = game.width/2-this.width/2;
         this.y = game.height-this.height;
         this.v = {

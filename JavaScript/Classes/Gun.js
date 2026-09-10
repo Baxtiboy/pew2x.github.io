@@ -19,14 +19,17 @@ export class Gun extends Point {
     fire(vector) {
         if (this.ammo > 0 && this.isCooldown === false) {
             this.isCooldown = true;
-            //this.ammo--;
+            this.ammo--;
             this.looseBullets.push(new Bullet(this, vector));
-            //console.log(this.looseBullets);
             this.length = 25;
             setTimeout(() => {
                 this.isCooldown = false;
             }, this.cooldownTime)
         }
+    }
+
+    reload() {
+        this.ammo = this.mag;
     }
     
     update(input, dt) {
@@ -36,7 +39,8 @@ export class Gun extends Point {
         this.y = pointer.y;
 
         input.mousePressed(0, () => this.fire(mouseDir))
-        this.length = Math.min(30, this.length + (30 * dt))       
+        this.length = Math.min(30, this.length + (30 * dt))
+        input.keyTapped("KeyR", () => this.reload())     
 
         this.looseBullets.forEach((bullet, index) => {
             if (bullet.update(dt) === false) this.looseBullets.splice(index, 1);

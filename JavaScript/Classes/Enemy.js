@@ -14,11 +14,16 @@ export class Enemy extends Point {
         this.height = 30;
         this.health = 100;
         this.isAlive = true; 
+        this.color = "#f00"
         this.bullets = this.game.player.gun.looseBullets
     }
 
     update(dt) {
-        if (this.health <= 0) this.isAlive = false;
+        if (this.color = "#fff") this.color = "#f00"
+        if (this.health <= 0) {
+            this.isAlive = false;
+            this.game.player.score++;
+        }
 
         this.bullets.forEach((bullet, index) => {
             if (bullet.x > this.x &&
@@ -27,8 +32,10 @@ export class Enemy extends Point {
                 bullet.y < this.y + this.height
             ) {
                 this.bullets.splice(index, 1);
-                this.isAlive = false;
+                this.health -= 20;
+                this.color = "#fff"
                 bullet.isAlive = false;
+                
             } 
         })
 
@@ -49,7 +56,7 @@ export class Enemy extends Point {
     }
 
     draw(ctx) {
-        ctx.fillStyle = "#f00";
+        ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.width, this.height)
     }
 }
