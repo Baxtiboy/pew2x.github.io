@@ -7,7 +7,24 @@
     <title>pew2x</title>
 </head>
 <body>
-    <canvas id="game" width="600" height="600"></canvas>
+    <header class="main-header">
+        <h1 class="title">Pew2x</h1>
+    </header>
+    <main class="main-area">
+        <section class="game-section">
+            <header class="header-game-section">
+                <h3 id="fpsCounter">FPS: 60</h3>
+                <h3 id="score">Score:</h3>
+                <h3 id="health">Health: 100</h3>
+            </header>
+            <canvas id="game" width="600" height="600"></canvas>
+            <aside class="side-info-game-section">
+                <h3 id="timeCounter">Time: 0:00</h3>
+                <h3 id="damage">Dmg: 20</h3>
+                <h3 id="ammo">Ammo: 30</h3>
+            </aside>
+        </section>
+    </main>
     <script type="module" src="JavaScript/main.js"></script>
 </body>
 </html>

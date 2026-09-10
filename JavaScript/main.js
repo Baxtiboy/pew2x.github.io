@@ -1,19 +1,25 @@
 import { Player } from "./Classes/Player.js";
 import { InputHandler } from "./Classes/InputHandler.js";
 import { Enemy } from "./Classes/Enemy.js";
+import { InfoGUI } from "./Classes/InfoGUI.js";
 
 window.addEventListener("load", event => {
-    const cavnas = document.getElementById("game");
-    const context = cavnas.getContext("2d");
-    cavnas.width = 600;
-    cavnas.height = 600;
+    const canvas = document.getElementById("game");
+    const context = canvas.getContext("2d");
+    canvas.width = 600;
+    canvas.height = 600;
+
+    const fpsCounter = document.getElementById("fpsCounter");
+    const timeCounter = document.getElementById("timeCounter");
+    //context.translate(canvas.width, 0);
 
     class Game {
         constructor(width, height) {
             this.width = width;
             this.height = height;
             this.player = new Player(this);
-            this.inputHandler = new InputHandler();
+            this.infoGUI = new InfoGUI(this);
+            this.inputHandler = new InputHandler(canvas);
             this.enemyList = [];
             //this.enemy = new Enemy(this, 100, 100);
         }
@@ -41,7 +47,7 @@ window.addEventListener("load", event => {
         }
     }
 
-    const game = new Game(cavnas.width, cavnas.height);
+    const game = new Game(canvas.width, canvas.height);
     console.log(game)
 
     let deltaTime = 1/60;
@@ -53,12 +59,14 @@ window.addEventListener("load", event => {
         requestAnimationFrame(gameLoop);
 
         const elapsed = currentTime - lastTime;
-        if (elapsed <= frameTime) return
+        if (elapsed < frameTime) return
         deltaTime = elapsed / 1000;
         lastTime = currentTime - (elapsed % frameTime);
 
         game.update(deltaTime);
         game.draw(context);
+
+        game.infoGUI.update(deltaTime);
     }
 
     requestAnimationFrame(gameLoop);

@@ -30,7 +30,7 @@ export class Bullet extends Point {
         const tail = this.pointer(this.vector, -10);
 
         ctx.strokeStyle = "#9ff";
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 3;
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
         ctx.lineTo(tail.x, tail.y);

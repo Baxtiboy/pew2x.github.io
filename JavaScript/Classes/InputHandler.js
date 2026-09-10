@@ -1,5 +1,6 @@
 export class InputHandler {
-    constructor() {
+    constructor(canvas) {
+        this.canvas = canvas;
         this.keysPressed = {};
         this.mousePresses = [false, false, false];
         this.keysTapped = {};
@@ -21,8 +22,10 @@ export class InputHandler {
         })
 
         window.addEventListener("mousemove", event => {
-            this.mousePos.x = event.clientX-8;
-            this.mousePos.y = event.clientY-8;
+            const rect = this.canvas.getBoundingClientRect();
+
+            this.mousePos.x = event.clientX-8 - rect.left;
+            this.mousePos.y = event.clientY-8 - rect.top;
         })
     }
 
