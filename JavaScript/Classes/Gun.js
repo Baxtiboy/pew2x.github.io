@@ -29,7 +29,7 @@ export class Gun extends Point {
     }
     
     update(input, dt) {
-        const mouseDir = this.getVector(input.mousePos);
+        const mouseDir = this.owner.getVector(input.mousePos);
         const pointer = this.owner.pointer(mouseDir, this.length);
         this.x = pointer.x;
         this.y = pointer.y;
