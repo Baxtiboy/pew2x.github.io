@@ -28,8 +28,7 @@ export class Point {
         return Math.sqrt(xDist**2 + yDist**2);
     }
 
-    pointer(target, length) {
-        const vector = this.getVector(target);
+    pointer(vector, length) {
 
         return {x: this.x + (vector.x * length), y: this.y + (vector.y * length)};
     }

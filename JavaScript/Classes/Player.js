@@ -26,16 +26,16 @@ export class Player extends Point {
 
     update(input, dt) {
         const mouseDir = this.getVector(input.mousePos);
-        input.tapped("KeyW", () => this.dash(mouseDir, dt));
-        input.tapped("KeyA", () => this.dash(this.rotate90s(mouseDir, -90), dt));
-        input.tapped("KeyS", () => this.dash(this.rotate90s(mouseDir, 180), dt));
-        input.tapped("KeyD", () => this.dash(this.rotate90s(mouseDir, 90), dt));
+        input.keyTapped("KeyW", () => this.dash(mouseDir, dt));
+        input.keyTapped("KeyA", () => this.dash(this.rotate90s(mouseDir, -90), dt));
+        input.keyTapped("KeyS", () => this.dash(this.rotate90s(mouseDir, 180), dt));
+        input.keyTapped("KeyD", () => this.dash(this.rotate90s(mouseDir, 90), dt));
 
-        input.pressed("Space", () => {
+        input.keyPressed("Space", () => {
             const dist = this.getDist(input.mousePos);
 
-            this.v.x += mouseDir.x * ((dist/30) * dt);
-            this.v.y += mouseDir.y * ((dist/30) * dt);
+            this.v.x += mouseDir.x * ((dist/15) * dt);
+            this.v.y += mouseDir.y * ((dist/15) * dt);
         })
 
         this.v.x -= (this.v.x * 5) * dt;

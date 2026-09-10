@@ -1,9 +1,9 @@
 export class InputHandler {
     constructor() {
         this.keysPressed = {};
-        this.mousePressed = [false, false, false];
+        this.mousePresses = [false, false, false];
         this.keysTapped = {};
-        this.mouseTapped = [false, false, false];
+        this.mouseTapps = [false, false, false];
         this.mousePos = {x: 0, y: 0}
         window.addEventListener("keydown", event => {
             this.keysPressed[event.code] = true;
@@ -13,11 +13,11 @@ export class InputHandler {
             this.keysPressed[event.code] = false;
         })
         window.addEventListener("mousedown", event => {
-            this.keysPressed[event.button] = true;
+            this.mousePresses[event.button] = true;
             //console.log(event.button);
         })
         window.addEventListener("mouseup", event => {
-            this.keysPressed[event.button] = false;
+            this.mousePresses[event.button] = false;
         })
 
         window.addEventListener("mousemove", event => {
@@ -26,7 +26,7 @@ export class InputHandler {
         })
     }
 
-    tapped(key, func) {
+    keyTapped(key, func) {
         if (this.keysPressed[key]) {
             if (this.keysTapped[key]) {
                 func()
@@ -35,8 +35,21 @@ export class InputHandler {
         } else this.keysTapped[key] = true;
     }
 
-    pressed(key, func) {
+    keyPressed(key, func) {
         if (this.keysPressed[key]) func();
+    }
+
+    mouseTapped(key, func) {
+        if (this.mousePresses[key]) {
+            if (this.mouseTapps[key]) {
+                func()
+                this.mouseTapps[key] = false;
+            }
+        } else this.mouseTapps[key] = true;
+    }
+
+    mousePressed(key, func) {
+        if (this.mousePresses[key]) func();
     }
 
     drawMouse(ctx) {
